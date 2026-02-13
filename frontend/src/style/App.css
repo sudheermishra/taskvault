@@ -1,0 +1,23 @@
+/* .link {
+  text-decoration: none;
+  margin-top: 15px;
+  display: block;
+} */
+.link {
+  text-decoration: none;
+  margin-top: 15px;
+  display: block;
+  color: #007bff;
+  font-weight: 500;
+  transition: 0.2s ease;
+}
+
+.link:hover {
+  color: #0056d2;
+  text-decoration: underline;
+}
+@media (max-width: 480px) {
+  .link {
+    font-size: 14px;
+  }
+}
