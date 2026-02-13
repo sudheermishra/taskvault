@@ -8,12 +8,22 @@ import dotenv from "dotenv";
 dotenv.config();
 const app = express();
 
+const allowedOrigins = process.env.CLIENT_URL.split(","); // split comma separated
+
 app.use(
   cors({
-    origin: process.env.CLIENT_URL,
+    origin: function (origin, callback) {
+      if (!origin) return callback(null, true); // curl, Postman, mobile apps
+      if (allowedOrigins.indexOf(origin) !== -1) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
   }),
 );
+
 app.use(express.json());
 app.use(cookieparser());
 
