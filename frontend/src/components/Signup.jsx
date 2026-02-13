@@ -13,13 +13,16 @@ function Signup() {
 
   const handleSignUp = async () => {
     console.log(userData);
-    const response = await fetch("http://localhost:3200/signup", {
-      method: "Post",
-      body: JSON.stringify(userData),
-      headers: {
-        "Content-Type": "Application/Json",
+    const response = await fetch(
+      "https://taskvault-backend-lznz.onrender.com/signup",
+      {
+        method: "Post",
+        body: JSON.stringify(userData),
+        headers: {
+          "Content-Type": "Application/Json",
+        },
       },
-    });
+    );
     const result = await response.json();
     if (result.success) {
       console.log(result);

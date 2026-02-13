@@ -6,14 +6,17 @@ function AddTask() {
   const navigate = useNavigate();
 
   async function handleSubmit() {
-    let result = await fetch("http://localhost:3200/add-task", {
-      method: "post",
-      body: JSON.stringify(taskData),
-      credentials: "include",
-      headers: {
-        "Content-Type": "Application/Json",
+    let result = await fetch(
+      "https://taskvault-backend-lznz.onrender.com/add-task",
+      {
+        method: "post",
+        body: JSON.stringify(taskData),
+        credentials: "include",
+        headers: {
+          "Content-Type": "Application/Json",
+        },
       },
-    });
+    );
     result = await result.json();
     if (result.success) {
       navigate("/");

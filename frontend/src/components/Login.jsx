@@ -12,13 +12,16 @@ function Login() {
   });
   const handleLogin = async () => {
     console.log(userData);
-    const response = await fetch("http://localhost:3200/login", {
-      method: "Post",
-      body: JSON.stringify(userData),
-      headers: {
-        "Content-Type": "Application/Json",
+    const response = await fetch(
+      "https://taskvault-backend-lznz.onrender.com/login",
+      {
+        method: "Post",
+        body: JSON.stringify(userData),
+        headers: {
+          "Content-Type": "Application/Json",
+        },
       },
-    });
+    );
     const result = await response.json();
     if (result.success) {
       document.cookie = "token=" + result.token;
