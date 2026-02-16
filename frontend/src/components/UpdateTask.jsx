@@ -11,12 +11,9 @@ function UpdateTask() {
   }, []);
 
   const getTask = async (id) => {
-    const response = await fetch(
-      "https://taskvault-backend-lznz.onrender.com/task/" + id,
-      {
-        credentials: "include",
-      },
-    );
+    const response = await fetch("http://localhost:3200/task/" + id, {
+      credentials: "include",
+    });
     const data = await response.json();
     if (data.result) {
       setTaskData(data.result);
@@ -24,17 +21,14 @@ function UpdateTask() {
   };
 
   const update = async () => {
-    const response = await fetch(
-      "https://taskvault-backend-lznz.onrender.com/update-task",
-      {
-        credentials: "include",
-        method: "put",
-        body: JSON.stringify(taskData),
-        headers: {
-          "Content-Type": "Application/Json",
-        },
+    const response = await fetch("http://localhost:3200/update-task", {
+      credentials: "include",
+      method: "put",
+      body: JSON.stringify(taskData),
+      headers: {
+        "Content-Type": "Application/Json",
       },
-    );
+    });
     const data = await response.json();
     if (data) {
       navigate("/");

@@ -4,22 +4,11 @@ import { connection, dbCollectionName } from "./dbconfig.js";
 import { ObjectId } from "mongodb";
 import jwt from "jsonwebtoken";
 import cookieparser from "cookie-parser";
-import dotenv from "dotenv";
-dotenv.config();
 const app = express();
-
-const allowedOrigins = process.env.CLIENT_URL.split(","); // split comma separated
 
 app.use(
   cors({
-    origin: function (origin, callback) {
-      if (!origin) return callback(null, true); // curl, Postman, mobile apps
-      if (allowedOrigins.indexOf(origin) !== -1) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
+    origin: "http://localhost:5173",
     credentials: true,
   }),
 );
@@ -35,21 +24,16 @@ app.post("/signup", async (req, resp) => {
     const collection = await db.collection("users");
     const result = await collection.insertOne(userData);
     if (result) {
-      jwt.sign(
-        userData,
-        process.env.JWT_SECRET,
-        { expiresIn: "5d" },
-        (error, token) => {
-          resp.send({
-            message: "data send ",
-            success: true,
-            token,
-          });
-        },
-      );
+      jwt.sign(userData, "Google", { expiresIn: "5d" }, (error, token) => {
+        resp.send({
+          message: "signup done ",
+          success: true,
+          token,
+        });
+      });
     } else {
       resp.send({
-        message: "data failed to send",
+        message: "sign up not done",
         success: false,
       });
     }
@@ -66,18 +50,13 @@ app.post("/login", async (req, resp) => {
       password: userData.password,
     });
     if (result) {
-      jwt.sign(
-        userData,
-        process.env.JWT_SECRET,
-        { expiresIn: "5d" },
-        (error, token) => {
-          resp.send({
-            success: true,
-            msg: "login done",
-            token,
-          });
-        },
-      );
+      jwt.sign(userData, "Google", { expiresIn: "5d" }, (error, token) => {
+        resp.send({
+          success: true,
+          msg: "login done",
+          token,
+        });
+      });
     } else {
       resp.send({
         success: false,
@@ -105,7 +84,7 @@ app.post("/add-task", verifyJWTToken, async (req, resp) => {
     });
   } else {
     resp.send({
-      Message: "failed to add task",
+      Message: " task not added",
       success: false,
     });
   }
@@ -210,9 +189,8 @@ app.delete("/delete-multiple", verifyJWTToken, async (req, resp) => {
 });
 
 function verifyJWTToken(req, resp, next) {
-  //  console.log("verifyJWTToken ", req.cookies['token']);
   const token = req.cookies["token"];
-  jwt.verify(token, process.env.JWT_SECRET, (error, decoded) => {
+  jwt.verify(token, "Google", (error, decoded) => {
     if (error) {
       return resp.send({
         msg: "invalid token",
@@ -222,4 +200,4 @@ function verifyJWTToken(req, resp, next) {
     next();
   });
 }
-app.listen(process.env.PORT || 3200);
+app.listen(3200);

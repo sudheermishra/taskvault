@@ -9,12 +9,9 @@ function List() {
   }, []);
 
   const getListData = async () => {
-    const response = await fetch(
-      "https://taskvault-backend-lznz.onrender.com/tasks",
-      {
-        credentials: "include",
-      },
-    );
+    const response = await fetch("http://localhost:3200/tasks", {
+      credentials: "include",
+    });
     const data = await response.json();
     if (data.success) {
       setTaskData(data.result);
@@ -24,13 +21,10 @@ function List() {
   };
 
   const deleteTask = async (id) => {
-    const response = await fetch(
-      "https://taskvault-backend-lznz.onrender.com/delete/" + id,
-      {
-        method: "delete",
-        credentials: "include",
-      },
-    );
+    const response = await fetch("http://localhost:3200/delete/" + id, {
+      method: "delete",
+      credentials: "include",
+    });
     const data = await response.json();
     if (data.success) {
       getListData();
@@ -58,17 +52,14 @@ function List() {
   };
 
   const deleteMultiple = async () => {
-    const response = await fetch(
-      "https://taskvault-backend-lznz.onrender.com/delete-multiple",
-      {
-        method: "delete",
-        body: JSON.stringify(selectData),
-        credentials: "include",
-        headers: {
-          "Content-Type": "Application/Json",
-        },
+    const response = await fetch("http://localhost:3200/delete-multiple", {
+      method: "delete",
+      body: JSON.stringify(selectData),
+      credentials: "include",
+      headers: {
+        "Content-Type": "Application/Json",
       },
-    );
+    });
     const data = await response.json();
     if (data.success) {
       getListData();
@@ -78,7 +69,7 @@ function List() {
   };
   return (
     <div className="list-container">
-      <h1>Todo List</h1>
+      <h1>TaskVault Dashboard</h1>
       <button onClick={deleteMultiple} className="delete-item delete-multiple">
         Delete
       </button>

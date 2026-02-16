@@ -26,7 +26,7 @@ function Navbar() {
 
   return (
     <nav className="navbar">
-      <div className="logo">TaskVault Dashboard</div>
+      <div className="logo">TaskVault</div>
       <ul className="nav-links">
         {login ? (
           <>
