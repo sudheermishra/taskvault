@@ -2,7 +2,6 @@
 
 A full-stack task management application built with the **MERN stack**, featuring JWT authentication, cookie-based sessions, and a complete REST API with protected routes.
 
-🌐 **Live Site:** *(Add your deployed link here)*
 
 ---
 
