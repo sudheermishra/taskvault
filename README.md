@@ -106,15 +106,6 @@ Frontend runs on `http://localhost:5173`
 
 ---
 
-## 📌 Planned Improvements
-
-- Password hashing with bcrypt
-- Task categories and priority levels
-- Search and filter functionality
-- Cloud deployment
-
----
-
 ## 📬 Contact
 
 - **Email:** sudheermishra8587@gmail.com
